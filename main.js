@@ -31,6 +31,6 @@ map.addControl(
     compact: true,
     customAttribution:
       '<a href="https://twitter.com/shi__works" target="_blank">X(旧Twitter)</a> | ' +
-      '<a href="https://github.com/shiwaku/city-shizuoka-kihonzu-on-dm" target="_blank">GitHub</a> | ',
+      '<a href="https://github.com/shiwaku/pref-mie-dourodaichozu" target="_blank">GitHub</a> | ',
   }),
 );
