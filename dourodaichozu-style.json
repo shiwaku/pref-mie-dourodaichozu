@@ -1,0 +1,90 @@
+{
+  "version": 8,
+  "name": "city-shizuoka-kihonzu",
+  "glyphs": "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
+  "sprite": "https://geolonia.github.io/smartcity-dm-sprite/sprite",
+  "sources": {
+    "dourodaichozu": {
+      "type": "vector",
+      "url": "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/pref-mie/dourodaichozu.pmtiles",
+      "attribution": "<a href=\"https://data.bodik.jp/dataset/240001_mieken_dourodaityouhuzu\" target=\"_blank\">三重県道路台帳附図</a>"
+    }
+  },
+  "layers": [
+    {
+      "id": "dourodaichozu_polygon_fill",
+      "type": "fill",
+      "source": "dourodaichozu",
+      "source-layer": "dourodaichozu_polygon",
+      "paint": {
+        "fill-color": "#ffffff",
+        "fill-opacity": 0.25
+      }
+    },
+    {
+      "id": "dourodaichozu_polygon_outline",
+      "type": "line",
+      "source": "dourodaichozu",
+      "source-layer": "dourodaichozu_polygon",
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 0.6
+      }
+    },
+    {
+      "id": "dourodaichozu_line",
+      "type": "line",
+      "source": "dourodaichozu",
+      "source-layer": "dourodaichozu_line",
+      "paint": {
+        "line-color": "#000000",
+        "line-width": 1
+      }
+    },
+    {
+      "id": "dourodaichozu_symbol",
+      "type": "symbol",
+      "source": "dourodaichozu",
+      "source-layer": "dourodaichozu_symbol",
+      "layout": {
+        "icon-image": [
+          "concat",
+          "dm-",
+          ["slice", ["to-string", ["get", "Layer"]], 0, 4]
+        ],
+        "icon-size": 1,
+        "icon-allow-overlap": true,
+        "icon-ignore-placement": true
+      }
+    },
+    {
+      "id": "dourodaichozu_annotation",
+      "type": "symbol",
+      "source": "dourodaichozu",
+      "source-layer": "dourodaichozu_annotation",
+      "layout": {
+        "text-field": ["coalesce", ["get", "String"], ""],
+        "text-size": 11,
+        "text-anchor": "center",
+        "text-offset": [1.5, -1],
+        "text-rotation-alignment": "map",
+        "text-rotate": [
+          "let",
+          "a",
+          ["coalesce", ["to-number", ["get", "Angle"]], 0],
+          [
+            "case",
+            ["any", ["==", ["var", "a"], 90], ["==", ["var", "a"], -90]],
+            0,
+            ["*", -1, ["var", "a"]]
+          ]
+        ]
+      },
+      "paint": {
+        "text-color": "#000",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5
+      }
+    }
+  ]
+}
