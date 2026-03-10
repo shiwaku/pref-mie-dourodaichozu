@@ -16,6 +16,8 @@ const map = new maplibregl.Map({
 });
 
 map.on("load", () => {
+  map.addSprite("dm", "https://geolonia.github.io/smartcity-dm-sprite/sprite");
+
   map.addSource("dourodaichozu", {
     type: "vector",
     url: "pmtiles://https://pmtiles-data.s3.ap-northeast-1.amazonaws.com/pref-mie/dourodaichozu.pmtiles",
@@ -56,10 +58,25 @@ map.on("load", () => {
   });
 
   map.addLayer({
+    id: "dourodaichozu_symbol",
+    type: "symbol",
+    source: "dourodaichozu",
+    "source-layer": "dourodaichozu_symbol",
+    minzoom: 14,
+    layout: {
+      "icon-image": ["concat", "dm:dm-", ["slice", ["to-string", ["get", "Layer"]], 0, 4]],
+      "icon-size": 1,
+      "icon-allow-overlap": true,
+      "icon-ignore-placement": true,
+    },
+  });
+
+  map.addLayer({
     id: "dourodaichozu_annotation",
     type: "symbol",
     source: "dourodaichozu",
     "source-layer": "dourodaichozu_annotation",
+    minzoom: 14,
     layout: {
       "text-field": ["coalesce", ["get", "String"], ""],
       "text-size": 11,
@@ -89,6 +106,7 @@ map.on("load", () => {
     "dourodaichozu_polygon_fill",
     "dourodaichozu_polygon_outline",
     "dourodaichozu_line",
+    "dourodaichozu_symbol",
     "dourodaichozu_annotation",
   ];
 
